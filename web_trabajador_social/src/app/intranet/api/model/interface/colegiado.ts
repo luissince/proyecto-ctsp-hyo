@@ -54,3 +54,23 @@ export interface ColegiadoFiltro {
   nombre_especialidad: string; // From the 'especialidades' table
   fecha_fin: string;
 }
+
+export interface ColegiadoWeb {
+  codigo_colegiado: string;
+  tipo_documento_id: number;
+  numero_documento: string;
+  nombres: string;
+  apellidos: string;
+  celular: string;
+  correo_personal: string;
+  direccion: string;
+  sexo: number;
+  fecha_nacimiento: string;
+  especialidad_id: number;
+  estado: string;
+  habilitacion: number;
+  token_colegiado: string;
+  nombre_documento: string;
+  nombre_especialidad: string;
+  fecha_fin: string | null;
+}

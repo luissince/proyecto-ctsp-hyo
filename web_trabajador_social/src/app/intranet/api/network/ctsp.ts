@@ -75,6 +75,10 @@ export async function buscarcolegiadointranet<Lista>(params: object, abortContro
     return await Resolve.create(instance.post<Lista>(`colegiados/buscar-colegiado-intranet`, params, { signal: abortController?.signal }));
 }
 
+export async function buscarcolegiadoweb<Lista>(params: object, abortController: AbortController | null = null): Promise<Response<Lista> | RestError> {
+    return await Resolve.create(instance.post<Lista>(`colegiados/buscar-colegiado-web`, params, { signal: abortController?.signal }));
+}
+
 export async function registrarColegiado<Lista>(params: object, abortController: AbortController | null = null): Promise<Response<Lista> | RestError> {
     return await Resolve.create(instance.post<Lista>(`colegiados/registrar-colegiado`, params, { signal: abortController?.signal }));
 }

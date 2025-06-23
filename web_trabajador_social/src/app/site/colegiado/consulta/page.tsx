@@ -1,82 +1,74 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PageContainer from "@/app/site/components/PageContainer";
 import { FaSearch, FaUser, FaIdCard, FaCheckCircle, FaTimesCircle, FaSpinner } from 'react-icons/fa';
-
-interface Colegiado {
-  codigo_colegiado: string;
-  tipo_documento_id: number;
-  numero_documento: string;
-  nombres: string;
-  apellidos: string;
-  celular: string;
-  correo_personal: string;
-  direccion: string;
-  sexo: number;
-  fecha_nacimiento: string;
-  especialidad_id: number;
-  estado: string;
-  habilitacion: number;
-  token_colegiado: string;
-  nombre_documento: string;
-  nombre_especialidad: string;
-  fecha_fin: string | null;
-}
+import { ColegiadoWeb } from '@/app/intranet/api/model/interface/colegiado';
+import Lista from '@/app/intranet/api/model/interface/lista';
+import { buscarcolegiadoweb } from '@/app/intranet/api/network/ctsp';
+import Response from '@/app/intranet/api/model/class/response';
+import RestError from '@/app/intranet/api/model/class/restError';
+import toast from 'react-hot-toast';
 
 // Función para consumir el endpoint de la API
-async function fetchColegiadosFromApi(tipo_busqueda: number, busqueda: string): Promise<Colegiado[]> {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000'; // Usa tu variable de entorno
-  //const API_BASE_URL = process.env.API_CTSP || 'http://localhost:8000'; // Usa tu variable de entorno
-  const endpoint = `${API_BASE_URL}/colegiados/buscar-colegiado-web`;
+// async function fetchColegiadosFromApi(tipo_busqueda: number, busqueda: string): Promise<Colegiado[]> {
+//   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL; // Usa tu variable de entorno
+//   //const API_BASE_URL = process.env.API_CTSP || 'http://localhost:8000'; // Usa tu variable de entorno
+//   const endpoint = `${API_BASE_URL}/colegiados/buscar-colegiado-web`;
 
-  try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({ tipo_busqueda: tipo_busqueda, busqueda: busqueda }),
-    });
+//   try {
+//     const response = await fetch(endpoint, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Accept': 'application/json',
+//       },
+//       body: JSON.stringify({ tipo_busqueda: tipo_busqueda, busqueda: busqueda }),
+//     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Error de API:', errorData);
-      throw new Error(`Error ${response.status}: ${errorData.message || response.statusText}`);
-    }
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       console.error('Error de API:', errorData);
+//       throw new Error(`Error ${response.status}: ${errorData.message || response.statusText}`);
+//     }
 
-    const data = await response.json();
+//     const data = await response.json();
 
-    // La API devuelve un objeto con una clave 'rs' que contiene el array
-    if (data && data.rs && Array.isArray(data.rs)) {
-      // Convertir el campo 'habilitacion' a 'Activo' o 'Inactivo'
-      const formattedData = data.rs.map((item: any) => ({
-        ...item,
-        estado: item.habilitacion === 1 ? 'Activo' : 'Inactivo',
-        id: item.token_colegiado, // Usar token como ID único para React
-      }));
-      return formattedData;
-    } else {
-      console.warn('API response did not contain expected array in \'rs\' key:', data);
-      return [];
-    }
-  } catch (error) {
-    console.error('Error al conectar con la API:', error);
-    return [];
-  }
-}
+//     // La API devuelve un objeto con una clave 'rs' que contiene el array
+//     if (data && data.rs && Array.isArray(data.rs)) {
+//       // Convertir el campo 'habilitacion' a 'Activo' o 'Inactivo'
+//       const formattedData = data.rs.map((item: any) => ({
+//         ...item,
+//         estado: item.habilitacion === 1 ? 'Activo' : 'Inactivo',
+//         id: item.token_colegiado, // Usar token como ID único para React
+//       }));
+//       return formattedData;
+//     } else {
+//       console.warn('API response did not contain expected array in \'rs\' key:', data);
+//       return [];
+//     }
+//   } catch (error) {
+//     console.error('Error al conectar con la API:', error);
+//     return [];
+//   }
+// }
 
 function ConsultaColegiado() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState<Colegiado[]>([]);
+  const [searchResults, setSearchResults] = useState<ColegiadoWeb[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchType, setSearchType] = useState<'codigo' | 'apellidos'>('codigo');
+
+  const searchTermRef = useRef<HTMLInputElement>(null)
+
+  const abortController = useRef(new AbortController());
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if(searchTerm === "") {
-      console.log("Ingrese los datos")
+      // console.log("Ingrese los datos")
+      toast.error("Ingrese el valor de busqueda")
+      searchTermRef.current?.focus()
       return
     }
 
@@ -86,9 +78,30 @@ function ConsultaColegiado() {
     // Determinar el tipo de búsqueda numérico para la API
     const tipoBusquedaApi = searchType === 'codigo' ? 1 : 2; 
 
-    const results = await fetchColegiadosFromApi(tipoBusquedaApi, searchTerm);
-    setSearchResults(results);
+    // const results = await fetchColegiadosFromApi(tipoBusquedaApi, searchTerm);
+    // setSearchResults(results);
+    // setIsLoading(false);
+    // setDataColegiado([])
+    // setLoadTable(true)
+
+    const obj = {
+      "tipo_busqueda": tipoBusquedaApi,
+      "busqueda": searchTerm
+    }
+
+    const response = await buscarcolegiadoweb<Lista>(obj, abortController.current)
+    if (response instanceof Response) {
+
+      const data = response.data.rs as ColegiadoWeb[]
+      setSearchResults(data)
+    }
+    if (response instanceof RestError) {
+      //if (response.getType() === Types.CANCELED) return;
+      console.log(response.getMessage())
+    }
+
     setIsLoading(false);
+
   };
 
   return (
@@ -145,6 +158,7 @@ function ConsultaColegiado() {
                       type="text"
                       id="search"
                       value={searchTerm}
+                      ref={searchTermRef}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                       placeholder={searchType === 'codigo' ? 'Ej: C009' : 'Ej: Ramírez'}

@@ -67,7 +67,7 @@ export interface ColegiadoWeb {
   sexo: number;
   fecha_nacimiento: string;
   especialidad_id: number;
-  estado: string;
+  estado: number;
   habilitacion: number;
   token_colegiado: string;
   nombre_documento: string;

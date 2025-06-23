@@ -7,7 +7,7 @@ import Lista from '@/app/intranet/api/model/interface/lista';
 import { buscarcolegiadoweb } from '@/app/intranet/api/network/ctsp';
 import Response from '@/app/intranet/api/model/class/response';
 import RestError from '@/app/intranet/api/model/class/restError';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 // Función para consumir el endpoint de la API
 // async function fetchColegiadosFromApi(tipo_busqueda: number, busqueda: string): Promise<Colegiado[]> {
@@ -106,6 +106,7 @@ function ConsultaColegiado() {
 
   return (
     <PageContainer>
+      <Toaster/>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-16">
@@ -211,16 +212,16 @@ function ConsultaColegiado() {
                         </td> */}
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className={`px-3 py-1 text-sm font-semibold rounded-full flex items-center gap-1 w-fit ${
-                            result.estado === 'Activo'
+                            result.estado === 1
                               ? 'bg-green-100 text-green-800'
                               : 'bg-red-100 text-red-800'
                           }`}>
-                            {result.estado === 'Activo' ? (
+                            {result.estado === 1 ? (
                               <FaCheckCircle className="h-3 w-3" />
                             ) : (
                               <FaTimesCircle className="h-3 w-3" />
                             )}
-                            {result.estado}
+                            {result.estado === 1? 'ACTIVO' : 'INACTIVO'}
                           </span>
                         </td>
                       </tr>

@@ -43,7 +43,7 @@ export default function ModActualizarUsuario(props: Props) {
 
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState<FormActualizarUsuario>(INITIAL_FORM_STATE);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [_isSubmitting, setIsSubmitting] = useState(false);
 
     // Referencias para los inputs
     const tipoDocumentoRef = useRef<HTMLSelectElement>(null);

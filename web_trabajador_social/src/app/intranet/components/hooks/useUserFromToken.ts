@@ -30,7 +30,7 @@ export function useUserFromToken(tokenKey: string = "token-storage") { // Hook p
         try {
           const parsed = JSON.parse(storage); // Parsea el JSON
           token = parsed?.state?.token || null; // Extrae el token real
-        } catch (e) {
+        } catch (_e) {
           token = null; // Si hay error al parsear, pone null
         }
       }
@@ -39,7 +39,7 @@ export function useUserFromToken(tokenKey: string = "token-storage") { // Hook p
       try {
         const decoded = jwtDecode<UserPayload>(token); // Decodifica el token
         setUser(decoded); // Guarda el usuario decodificado en el estado
-      } catch (e) { // Si ocurre un error al decodificar
+      } catch (_e) { // Si ocurre un error al decodificar
         setUser(null); // Si hay error al decodificar, pone null
       }
     } else { // Si no hay token

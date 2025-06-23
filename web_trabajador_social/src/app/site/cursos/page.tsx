@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import PageContainer from "@/app/site/components/PageContainer";
-import { FaGraduationCap, FaCalendarAlt, FaClock, FaUsers, FaMapMarkerAlt, FaArrowRight, FaSearch, FaBook, FaLaptop, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaCalendarAlt, FaClock, FaUsers, FaMapMarkerAlt, FaArrowRight, FaSearch, FaBook, FaLaptop, FaChalkboardTeacher } from 'react-icons/fa';
 
 const cursos = [
   {

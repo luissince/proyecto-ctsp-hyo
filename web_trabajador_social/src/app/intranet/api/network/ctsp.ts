@@ -23,7 +23,7 @@ instance.interceptors.request.use((config) => {
             const parsedState = JSON.parse(tokenString);
             token = parsedState.state.token; 
         } catch (e) {
-            //console.error("Error parsing token from localStorage", e);
+            console.error("Error parsing token from localStorage", e);
         }
     }
 

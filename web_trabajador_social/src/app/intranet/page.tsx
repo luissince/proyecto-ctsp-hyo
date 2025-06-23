@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { FaUsers, FaUserCog, FaClipboardList, FaCalendarAlt, FaFileAlt, FaChartBar } from 'react-icons/fa';
+import { FaUsers, FaUserCog } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 
 export default function IntranetPage() {

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import ContentCard from '../components/ContentCard';
-import { FaSearch, FaEdit, FaTrash, FaPlusCircle, FaUsers, FaCheckCircle, FaTimesCircle, FaList } from 'react-icons/fa'; // Import icons
+import { FaSearch, FaEdit, FaPlusCircle, FaUsers, FaCheckCircle, FaTimesCircle, FaList } from 'react-icons/fa'; // Import icons
 import TitleCard from '../components/TitleCard';
 import { IoReloadCircle } from 'react-icons/io5';
 import ModCrearColegiado from './modal/ModCrearColegiado';

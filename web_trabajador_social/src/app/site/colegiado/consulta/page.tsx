@@ -47,8 +47,6 @@ async function fetchColegiadosFromApi(tipo_busqueda: number, busqueda: string): 
 
     const data = await response.json();
 
-    console.log(data)
-
     // La API devuelve un objeto con una clave 'rs' que contiene el array
     if (data && data.rs && Array.isArray(data.rs)) {
       // Convertir el campo 'habilitacion' a 'Activo' o 'Inactivo'

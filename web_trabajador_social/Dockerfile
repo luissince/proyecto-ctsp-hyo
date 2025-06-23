@@ -27,6 +27,7 @@ ENV NODE_ENV production
 
 # Copiar solo los archivos necesarios
 COPY --from=builder /app/next.config.mjs ./
+#COPY --from=builder /app/.next/standalone/next.config.mjs ./next.config.mjs
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static

@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import PageContainer from "@/app/site/components/PageContainer";
-import { FaFileAlt, FaGraduationCap, FaBriefcase, FaClock, FaPhone, FaInfoCircle, FaCheckCircle } from 'react-icons/fa';
+import { FaFileAlt, FaGraduationCap, FaBriefcase, FaInfoCircle, FaCheckCircle } from 'react-icons/fa';
 
 function RequisitosColegiado() {
   const requisitos = [

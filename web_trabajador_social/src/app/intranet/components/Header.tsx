@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { FaSignOutAlt, FaBell, FaUserCircle, FaBars } from 'react-icons/fa';
+import { FaSignOutAlt, FaBars } from 'react-icons/fa';
 import { useAuthStore } from '@/store/authStore';
 
 export default function Header() {

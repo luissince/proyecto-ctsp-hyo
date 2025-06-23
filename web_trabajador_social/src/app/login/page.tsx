@@ -8,6 +8,7 @@ import { loginUsuario } from '@/app/intranet/api/network/ctsp';
 import Response from '../intranet/api/model/class/response';
 import RestError from '../intranet/api/model/class/restError';
 import { Token } from '../intranet/api/model/interface/usuario';
+import Link from 'next/link';
 
 function LoginPage() {
   const [usuario, setUsuario] = useState('');
@@ -144,12 +145,12 @@ function LoginPage() {
 
             {/* Link to main website */}
             <div className="mt-4 text-center">
-              <a
+              <Link
                 href="/"
                 className="text-sm text-blue-600 hover:text-blue-800 hover:underline cursor-pointer transition-colors duration-200"
               >
                 Ir al Sitio Web
-              </a>
+              </Link>
             </div>
           </form>
 

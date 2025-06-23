@@ -1,12 +1,11 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageContainer from "@/app/site/components/PageContainer";
 import Carousel from "@/app/site/components/Carousel";
 import { FaArrowRight, FaUsers, FaBuilding, FaBook, FaHandshake, FaLaptop, FaUserTie, FaUniversity, FaClipboardList, FaGavel, FaGlobe, FaHeartbeat, FaLightbulb, FaChalkboardTeacher, FaBalanceScale, FaPencilRuler, FaRegLightbulb, FaImage } from 'react-icons/fa';
-import { FaPerson, FaPersonDress } from 'react-icons/fa6';
 import { BsCameraReelsFill, BsCloudFill, BsDatabaseFill } from 'react-icons/bs';
-import { LiaFemaleSolid } from 'react-icons/lia';
 import { BiFemale } from 'react-icons/bi';
+import Image from 'next/image';
 
 
 interface ConsejoDirectivoMember {
@@ -84,9 +83,9 @@ const getRandomIconsWithColors = (count: number) => {
 function SitePage() {
   // Array de elementos (imágenes) para el carrusel
   const carouselItems: React.ReactNode[] = [
-    <div key="item1" className="flex items-center justify-center bg-gray-200 h-[550px]"><img src="/images/site/slide/slide_1.webp" alt="Slide 1" className="w-full h-full object-cover" /></div>,
-    <div key="item2" className="flex items-center justify-center bg-gray-300 h-[550px]"><img src="/images/site/slide/slide_2.webp" alt="Slide 2" className="w-full h-full object-cover" /></div>,
-    <div key="item3" className="flex items-center justify-center bg-gray-400 h-[550px]"><img src="/images/site/slide/slide_3.webp" alt="Slide 3" className="w-full h-full object-cover" /></div>,
+    <div key="item1" className="flex items-center justify-center bg-gray-200 h-[550px]"><Image src="/images/site/slide/slide_1.webp" alt="Slide 1" width={1200} height={550} className="w-full h-full object-cover" /></div>,
+    <div key="item2" className="flex items-center justify-center bg-gray-300 h-[550px]"><Image src="/images/site/slide/slide_2.webp" alt="Slide 2" width={1200} height={550} className="w-full h-full object-cover" /></div>,
+    <div key="item3" className="flex items-center justify-center bg-gray-400 h-[550px]"><Image src="/images/site/slide/slide_3.webp" alt="Slide 3" width={1200} height={550} className="w-full h-full object-cover" /></div>,
   ];
 
   // Estado para los iconos (con colores) que cambian aleatoriamente

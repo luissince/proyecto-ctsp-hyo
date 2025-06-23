@@ -53,7 +53,7 @@ export const useAuthStore = create<AuthState>()(
           // console.log("checkTokenExpiration: Token válido");
           return true;
         } catch (error) {
-          // console.error("checkTokenExpiration: Error decodificando o verificando token", error);
+          console.error("checkTokenExpiration: Error decodificando o verificando token", error);
           return false;
         }
       },
@@ -66,10 +66,10 @@ export const useAuthStore = create<AuthState>()(
       name: 'token-storage',
       storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: (state) => {
-        //console.log('onRehydrateStorage: Hidratación iniciada', state);
+        console.log('onRehydrateStorage: Hidratación iniciada', state);
         return (stateFromStorage, error) => {
           if (error) {
-            //console.log('onRehydrateStorage: Error durante la hidratación', error);
+            console.log('onRehydrateStorage: Error durante la hidratación', error);
           } else {
             (stateFromStorage as AuthState)?.setHasHydrated(true);
             //console.log('onRehydrateStorage: Hidratación finalizada', state);
@@ -78,5 +78,4 @@ export const useAuthStore = create<AuthState>()(
       },
     }
   )
-); 
- 
+);

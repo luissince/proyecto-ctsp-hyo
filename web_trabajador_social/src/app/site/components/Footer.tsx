@@ -11,6 +11,8 @@ import {
     FaHome
 } from 'react-icons/fa';
 import { FaPerson } from 'react-icons/fa6';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
     return (
@@ -27,11 +29,13 @@ export default function Footer() {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         {/* Columna 1 - Logo y descripción */}
                         <div className="space-y-4">
-                            <a href="/site" className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
+                            <Link href="/site" className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
                                 <div className="">
-                                    <img 
+                                    <Image 
                                       src="/logo_ctsp.webp" 
                                       alt="CTSP Logo" 
+                                      width={120}
+                                      height={120}
                                       className="h-34 w-auto object-contain p-1"
                                     />
                                 </div>
@@ -39,20 +43,20 @@ export default function Footer() {
                                     <h6 className="text-white font-bold text-sm">COLEGIO DE TRABAJADORES SOCIALES DEL PERÚ</h6>
                                     <p className="text-blue-400 text-sm">Huancayo</p>
                                 </div>
-                            </a>
+                            </Link>
                             <p className="text-gray-400 text-sm leading-relaxed">
-                                "El éxito es la suma de pequeños esfuerzos repetidos día tras día."
+                                El éxito es la suma de pequeños esfuerzos repetidos día tras día.
                             </p>
                             <div className="flex gap-3">
-                                <a href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300" aria-label="YouTube">
+                                <Link href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300" aria-label="YouTube">
                                     <FaYoutube className="w-4 h-4" />
-                                </a>
-                                <a href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300" aria-label="Facebook">
+                                </Link>
+                                <Link href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300" aria-label="Facebook">
                                     <FaFacebookF className="w-4 h-4" />
-                                </a>
-                                <a href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300" aria-label="WhatsApp">
+                                </Link>
+                                <Link href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300" aria-label="WhatsApp">
                                     <FaWhatsapp className="w-4 h-4" />
-                                </a>
+                                </Link>
                             </div>
                         </div>
 
@@ -72,10 +76,10 @@ export default function Footer() {
                                     { name: 'Diplomas', href: '/site/diplomado' }
                                 ].map((item) => (
                                     <li key={item.name}>
-                                        <a href={item.href} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 group">
+                                        <Link href={item.href} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 group">
                                             <FaArrowRight className="w-3 h-3 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             {item.name}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>

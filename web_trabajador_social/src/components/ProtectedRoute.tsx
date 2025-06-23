@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
 import { verificarEstadoToken } from '@/app/intranet/api/network/ctsp';
@@ -14,7 +14,7 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-    
+
     const router = useRouter();
     // isVerifying: true mientras se está comprobando el token, muestra un spinner
     const [isVerifying, setIsVerifying] = useState(true);
@@ -22,14 +22,14 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     const { token, isAuthenticated, logout, checkTokenExpiration, _hasHydrated } = useAuthStore();
 
     // Función auxiliar para cerrar sesión y redirigir al login
-    const logoutRouter = () => {
-        logout();
-        router.push('/login');
-    }
+    // const logoutRouter = () => {
+    //     logout();
+    //     router.push('/login');
+    // }
 
     // Usar useRef para almacenar el AbortController de la petición actual.
     // Esto nos permite cancelarla si una nueva petición se inicia o el componente se desmonta.
-    const currentRequestAbortController = useRef<AbortController | null>(null);
+    //const currentRequestAbortController = useRef<AbortController | null>(null);
 
     // useEffect se ejecuta cuando el componente se monta o cuando sus dependencias cambian.
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
         // Creamos un nuevo AbortController para esta ejecución específica del efecto.
         const controller = new AbortController();
-        
+
         // Solo proceder si el store de Zustand se ha hidratado desde localStorage.
         if (!_hasHydrated) {
             setIsVerifying(true); // Asegurar que el spinner se muestre mientras se espera la hidratación
@@ -51,7 +51,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
             // Si no hay token en el store después de la hidratación, redirigir inmediatamente al login
             if (!token) {
                 // console.log("ProtectedRoute: No hay token después de la hidratación, redirigiendo a /login.");
-                logoutRouter(); // Usar la función centralizada
+                //logoutRouter(); // Usar la función centralizada
+                logout();
+                router.push('/login');
                 setIsVerifying(false); // Detener el spinner
                 return; // Detiene la ejecución de la función
             }
@@ -60,8 +62,10 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
             // Si el token ha expirado localmente, cerrar sesión y redirigir
             if (!checkTokenExpiration()) {
                 // console.log("ProtectedRoute: Token expirado localmente, redirigiendo a /login.");
-                logoutRouter(); // Usar la función centralizada
+                //logoutRouter(); // Usar la función centralizada
                 setIsVerifying(false); // Detener el spinner
+                logout();
+                router.push('/login');
                 return; // Detiene la ejecución
             }
 
@@ -69,7 +73,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
             // Esto es crucial porque el backend es la fuente de verdad sobre la validez del token.
             try {
                 const response = await verificarEstadoToken<EstadoToken>(controller) // Usamos el nuevo controlador creado para esta ejecución
-                
+
                 // Si la respuesta es una instancia de Response (éxito de la petición HTTP)
                 if (response instanceof Response) {
                     const statusToken = response.data.status as boolean // Extrae el estado del token de la respuesta
@@ -77,7 +81,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
                     // Si el backend dice que el token no es válido (status es false)
                     if (statusToken === false) {
                         // console.log("ProtectedRoute: Backend indica token inválido (status false), redirigiendo a /login.");
-                        logoutRouter(); // Usar la función centralizada
+                        //logoutRouter(); // Usar la función centralizada
+                        logout();
+                        router.push('/login');
                         setIsVerifying(false); // Detener el spinner
                         return;
                     }
@@ -97,14 +103,18 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
                     }
                     // Para cualquier otro tipo de RestError (ej. 401, 500), cerramos sesión y redirigimos.
                     // console.log("ProtectedRoute: Error de red o backend al verificar token (no CANCELED), redirigiendo a /login.", response);
-                    logoutRouter(); // Usar la función centralizada
+                    //logoutRouter(); // Usar la función centralizada
+                    logout();
+                    router.push('/login');
                     setIsVerifying(false); // Asegurarse de que el spinner se detenga
                     return; // Detiene la ejecución
                 }
             } catch (error) {
                 // Esto captura errores que no son RestError o AxiosError envueltos, ej. errores de JS o de conexión.
-                // console.log("ProtectedRoute: Error inesperado en la verificación (fuera de RestError), redirigiendo a /login.", error);
-                logoutRouter(); // Usar la función centralizada
+                console.log("ProtectedRoute: Error inesperado en la verificación (fuera de RestError), redirigiendo a /login.", error);
+                //logoutRouter(); // Usar la función centralizada
+                logout();
+                router.push('/login');
                 setIsVerifying(false);
             }
 
@@ -119,7 +129,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
             // Si el token ha expirado localmente durante el intervalo, redirige al login.
             if (!checkTokenExpiration()) {
                 // console.log("ProtectedRoute: Verificación periódica: Token expirado, redirigiendo a /login.");
-                logoutRouter(); // Usar la función centralizada
+                //logoutRouter(); // Usar la función centralizada
+                logout();
+                router.push('/login');
             }
         }, 60000); // 60 segundos
 
@@ -128,7 +140,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
             clearInterval(interval); // Limpiar el intervalo para evitar fugas de memoria
             controller.abort(); // Cancelar la petición asociada a esta instancia del efecto
         };
-    }, [token, router, logout, checkTokenExpiration, _hasHydrated, logout]); // Dependencias: ahora incluye logoutRouter
+    }, [token, router, logout, checkTokenExpiration, _hasHydrated, logout]); // Dependencias: ahora incluye
 
     // Mostrar un spinner de carga mientras se verifica la autenticación O si el store aún no se ha hidratado
     if (isVerifying || !_hasHydrated) {

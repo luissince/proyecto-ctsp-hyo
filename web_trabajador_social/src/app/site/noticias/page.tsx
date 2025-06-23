@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from 'react';
 import PageContainer from "@/app/site/components/PageContainer";
-import { FaCalendarAlt, FaUser, FaTag, FaArrowRight } from 'react-icons/fa';
-import Image from 'next/image';
+import { FaCalendarAlt, FaUser, FaArrowRight } from 'react-icons/fa';
+
 
 const noticias = [
   {

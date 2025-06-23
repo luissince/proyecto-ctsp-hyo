@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import PageContainer from "@/app/site/components/PageContainer";
-import { FaBullseye, FaUsers, FaHistory, FaAward, FaHandshake, FaBuilding, FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from 'react-icons/fa';
+import { FaBullseye, FaHistory, FaAward, FaHandshake, FaBuilding, FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from 'react-icons/fa';
 
 const secciones = [
   {

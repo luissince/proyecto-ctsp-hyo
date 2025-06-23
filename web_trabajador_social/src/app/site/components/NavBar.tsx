@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import Image from 'next/image';
 
 import SocialMidea from './SocialMidea';
 
@@ -30,9 +31,11 @@ export default function NavBar() {
               del nav y le damos el tamaño deseado.
           */}
           <Link href="/site" className="absolute bottom-0 left-4 md:left-6 z-50"> 
-            <img 
+            <Image 
               src="/logo_ctsp.webp" 
               alt="CTSP Logo" 
+              width={96}
+              height={48}
               className="w-18 md:w-21 h-auto object-contain" // Tamaño del logo. w-24 es 96px, w-32 es 128px
             />
           </Link>

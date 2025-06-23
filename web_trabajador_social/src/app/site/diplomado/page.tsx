@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import PageContainer from "@/app/site/components/PageContainer";
-import { FaGraduationCap, FaCalendarAlt, FaClock, FaUsers, FaMapMarkerAlt, FaArrowRight, FaFilter, FaSearch } from 'react-icons/fa';
+import { FaGraduationCap, FaCalendarAlt, FaClock, FaUsers, FaMapMarkerAlt, FaArrowRight, FaSearch } from 'react-icons/fa';
 
 interface Diplomado {
   id: number;

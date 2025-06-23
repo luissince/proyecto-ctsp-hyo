@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { FaHome, FaUsers, FaUserCog, FaClipboardList, FaCalendarAlt, FaFileAlt, FaChartBar, FaCog, FaChevronDown, FaChevronRight, FaFilePdf, FaFileWord, FaFileExcel, FaFileArchive, FaFileImage, FaUserCircle, FaMale, FaFemale, FaAndroid } from 'react-icons/fa';
+import { FaHome, FaUsers, FaUserCog, FaChevronDown, FaChevronRight, FaMale, FaFemale, FaAndroid } from 'react-icons/fa';
 import Link from 'next/link';
 import { useUserFromToken } from "./hooks/useUserFromToken";
 import { usePathname } from "next/navigation";

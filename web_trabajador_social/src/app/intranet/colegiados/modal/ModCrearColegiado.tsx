@@ -1,6 +1,5 @@
 import ModalCustom from "../../components/ModalCustom";
 import { useRef, useState } from "react";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ModalHeader from '../../components/ModalHeader';
 import { Especialidad, TipoDocumento } from "../../api/model/interface/tablas/tablas";
 import { FormRegistrarColegiado } from "../../api/model/interface/colegiado";
@@ -40,10 +39,10 @@ export default function ModCrearColegiado(props: Props) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [dataTipDoc, setDataTipDoc] = useState<TipoDocumento[]>([])
-    const [loadTipDoc, setLoadTipDoc] = useState<Boolean>(false)
+    // const [loadTipDoc, setLoadTipDoc] = useState<Boolean>(false)
 
     const [dataEsp, setDataEsp] = useState<Especialidad[]>([])
-    const [loadEsp, setLoadEsp] = useState<Boolean>(false)
+    // const [loadEsp, setLoadEsp] = useState<Boolean>(false)
 
     const abortController = useRef(new AbortController());
 
@@ -74,7 +73,7 @@ export default function ModCrearColegiado(props: Props) {
 
     const loadDataTipDoc = async () => {
         setDataTipDoc([])
-        setLoadTipDoc(true)
+        // setLoadTipDoc(true)
 
         const response = await tiposDocumentoLista<Lista>(abortController.current)
         if (response instanceof Response) {
@@ -87,13 +86,13 @@ export default function ModCrearColegiado(props: Props) {
             console.log(response.getMessage())
         }
 
-        setLoadTipDoc(false)
+        // setLoadTipDoc(false)
     }
 
 
     const loadDataEsp = async () => {
         setDataEsp([])
-        setLoadEsp(true)
+        // setLoadEsp(true)
 
         const response = await especialidadesLista<Lista>(abortController.current)
         if (response instanceof Response) {
@@ -106,7 +105,7 @@ export default function ModCrearColegiado(props: Props) {
             console.log(response.getMessage())
         }
 
-        setLoadEsp(false)
+        // setLoadEsp(false)
     }
 
 
@@ -543,6 +542,7 @@ export default function ModCrearColegiado(props: Props) {
                     <button
                         type="submit"
                         className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-500"
+                        disabled={isSubmitting}
                     >
                         Guardar
                     </button>

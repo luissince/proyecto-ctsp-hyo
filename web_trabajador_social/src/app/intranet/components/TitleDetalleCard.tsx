@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { FaCircleArrowLeft } from "react-icons/fa6";
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 
 interface Props {
     title: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TitleDetalleCard: React.FC<Props> = ({ title, hide }) => {
-    const router = useRouter();
+    //const router = useRouter();
 
     return (
         <div className="flex items-center gap-2 mb-4">

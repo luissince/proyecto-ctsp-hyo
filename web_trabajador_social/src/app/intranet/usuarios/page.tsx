@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import ContentCard from '../components/ContentCard';
-import { FaSearch, FaEdit, FaTrash, FaPlusCircle, FaUserCog, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Import icons
+import { FaSearch, FaEdit, FaPlusCircle, FaUserCog, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'; // Import icons
 import TitleCard from '../components/TitleCard';
 import ModCrearUsuario from './modal/ModCrearUsuario';
 import { IoReloadCircle } from 'react-icons/io5';
@@ -10,7 +10,6 @@ import Lista from '../api/model/interface/lista';
 import { busquedaDocumentoOApellidos } from '../api/network/ctsp';
 import Response from '../api/model/class/response';
 import RestError from '../api/model/class/restError';
-import { Types } from '../api/model/emun/types';
 import { UsuarioFiltro } from '../api/model/interface/usuario';
 import Loading from '../components/Loading';
 import ModActualizarUsuario from './modal/ModActualizarUsuario';

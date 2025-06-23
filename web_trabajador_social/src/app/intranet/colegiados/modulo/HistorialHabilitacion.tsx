@@ -1,18 +1,18 @@
-import { FaCircleArrowLeft, FaCirclePlus } from "react-icons/fa6";
+// import { FaCircleArrowLeft, FaCirclePlus } from "react-icons/fa6";
 import { ColegiadoFiltro } from "../../api/model/interface/colegiado";
-import TitleCard from "../../components/TitleCard";
+//import TitleCard from "../../components/TitleCard";
 import TitleDetalleCard from "../../components/TitleDetalleCard";
 import CardDatosColegiado from "../../components/CardDataColegiado";
 import { HiClipboardList } from "react-icons/hi";
 import { useEffect, useRef, useState } from "react";
 import { BusquedaHistorialHabilitacion } from "../../api/model/interface/habilitacion";
-import { FaCheckCircle, FaEdit, FaLock, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
+import { FaCheckCircle, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
 import Lista from "../../api/model/interface/lista";
 import Response from "../../api/model/class/response";
 import RestError from "../../api/model/class/restError";
 import { buscarHabilitacionesColegiado } from "../../api/network/ctsp";
 import Loading from "../../components/Loading";
-import { RiExchangeFill } from "react-icons/ri";
+// import { RiExchangeFill } from "react-icons/ri";
 import ModCrearHistorial from "../modal/ModCrearHistorial";
 import { formatAndValidateDate, formatRegistrationDate, formatRegistrationTime } from "../../tools/helper";
 

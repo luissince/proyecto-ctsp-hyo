@@ -36,7 +36,7 @@ const INITIAL_FORM_STATE: FormRegistrarUsuario = {
 export default function ModCrearUsuario(props: Props) {
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState<FormRegistrarUsuario>(INITIAL_FORM_STATE);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [_isSubmitting, setIsSubmitting] = useState(false);
 
     // Referencias para los inputs
     const tipoDocumentoIdRef = useRef<HTMLSelectElement>(null);

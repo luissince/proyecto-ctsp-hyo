@@ -2,8 +2,9 @@
 //import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css"; // Importar globals.css desde la raíz
 
-import NavBar from "@/app/site/components/NavBar";
-import Footer from "@/app/site/components/Footer";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -21,11 +22,7 @@ import Footer from "@/app/site/components/Footer";
 //   description: "Descripción Web Pública",
 // };
 
-export default function PublicLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <NavBar />
@@ -33,6 +30,7 @@ export default function PublicLayout({
         {children}
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </>
   );
 } 

@@ -34,36 +34,36 @@ const secciones = [
   //     "Lic. Ana Martínez - Tesorera"
   //   ]
   // },
-  {
-    id: 3,
-    titulo: "Historia",
-    descripcion: "Desde nuestra fundación en 1985, hemos sido testigos y protagonistas del desarrollo del trabajo social en el Perú. Nuestra historia está marcada por logros significativos y un compromiso constante con la profesión.",
-    descripcionLarga: "A lo largo de más de 35 años, hemos contribuido significativamente al desarrollo del trabajo social en el Perú. Desde nuestra fundación, hemos formado a miles de profesionales y hemos sido parte fundamental en la evolución de la profesión, adaptándonos a los cambios sociales y tecnológicos.",
-    icono: FaHistory,
-    color: "from-green-500 to-green-600",
-    bgColor: "bg-green-100",
-    items: [
-      "Fundación en 1985",
-      "Reconocimiento nacional en 1995",
-      "Expansión a nivel nacional en 2005",
-      "Modernización institucional en 2020"
-    ]
-  },
-  {
-    id: 4,
-    titulo: "Reconocimientos",
-    descripcion: "Nuestro compromiso con la excelencia ha sido reconocido a nivel nacional e internacional. Estos reconocimientos validan nuestro trabajo y nos motivan a seguir mejorando.",
-    descripcionLarga: "A lo largo de nuestra trayectoria, hemos recibido numerosos reconocimientos que validan nuestro compromiso con la excelencia profesional. Estos premios y certificaciones reflejan nuestro impacto en la sociedad y nuestro liderazgo en el campo del trabajo social.",
-    icono: FaAward,
-    color: "from-orange-500 to-orange-600",
-    bgColor: "bg-orange-100",
-    items: [
-      "Premio Nacional a la Excelencia Institucional 2023",
-      "Certificación ISO 9001:2015",
-      "Reconocimiento Internacional por Innovación Social",
-      "Premio a la Mejor Institución Profesional 2022"
-    ]
-  },
+  // {
+  //   id: 3,
+  //   titulo: "Historia",
+  //   descripcion: "Desde nuestra fundación en 1985, hemos sido testigos y protagonistas del desarrollo del trabajo social en el Perú. Nuestra historia está marcada por logros significativos y un compromiso constante con la profesión.",
+  //   descripcionLarga: "A lo largo de más de 35 años, hemos contribuido significativamente al desarrollo del trabajo social en el Perú. Desde nuestra fundación, hemos formado a miles de profesionales y hemos sido parte fundamental en la evolución de la profesión, adaptándonos a los cambios sociales y tecnológicos.",
+  //   icono: FaHistory,
+  //   color: "from-green-500 to-green-600",
+  //   bgColor: "bg-green-100",
+  //   items: [
+  //     "Fundación en 1985",
+  //     "Reconocimiento nacional en 1995",
+  //     "Expansión a nivel nacional en 2005",
+  //     "Modernización institucional en 2020"
+  //   ]
+  // },
+  // {
+  //   id: 4,
+  //   titulo: "Reconocimientos",
+  //   descripcion: "Nuestro compromiso con la excelencia ha sido reconocido a nivel nacional e internacional. Estos reconocimientos validan nuestro trabajo y nos motivan a seguir mejorando.",
+  //   descripcionLarga: "A lo largo de nuestra trayectoria, hemos recibido numerosos reconocimientos que validan nuestro compromiso con la excelencia profesional. Estos premios y certificaciones reflejan nuestro impacto en la sociedad y nuestro liderazgo en el campo del trabajo social.",
+  //   icono: FaAward,
+  //   color: "from-orange-500 to-orange-600",
+  //   bgColor: "bg-orange-100",
+  //   items: [
+  //     "Premio Nacional a la Excelencia Institucional 2023",
+  //     "Certificación ISO 9001:2015",
+  //     "Reconocimiento Internacional por Innovación Social",
+  //     "Premio a la Mejor Institución Profesional 2022"
+  //   ]
+  // },
   {
     id: 5,
     titulo: "Alianzas",
@@ -79,24 +79,24 @@ const secciones = [
       "Empresas con Responsabilidad Social"
     ]
   },
-  {
-    id: 6,
-    titulo: "Infraestructura",
-    descripcion: "Contamos con instalaciones modernas y equipadas para el desarrollo profesional, incluyendo salas de capacitación, biblioteca especializada y áreas de servicio al colegiado.",
-    descripcionLarga: "Nuestras instalaciones han sido diseñadas pensando en las necesidades de nuestros colegiados. Disponemos de espacios modernos y funcionales que facilitan el aprendizaje, la investigación y el desarrollo profesional continuo.",
-    icono: FaBuilding,
-    color: "from-indigo-500 to-indigo-600",
-    bgColor: "bg-indigo-100",
-    items: [
-      "Sede principal con tecnología de última generación",
-      "Salas de capacitación multimedia",
-      "Biblioteca especializada con más de 10,000 títulos",
-      "Centro de atención al colegiado"
-    ]
-  }
+  // {
+  //   id: 6,
+  //   titulo: "Infraestructura",
+  //   descripcion: "Contamos con instalaciones modernas y equipadas para el desarrollo profesional, incluyendo salas de capacitación, biblioteca especializada y áreas de servicio al colegiado.",
+  //   descripcionLarga: "Nuestras instalaciones han sido diseñadas pensando en las necesidades de nuestros colegiados. Disponemos de espacios modernos y funcionales que facilitan el aprendizaje, la investigación y el desarrollo profesional continuo.",
+  //   icono: FaBuilding,
+  //   color: "from-indigo-500 to-indigo-600",
+  //   bgColor: "bg-indigo-100",
+  //   items: [
+  //     "Sede principal con tecnología de última generación",
+  //     "Salas de capacitación multimedia",
+  //     "Biblioteca especializada con más de 10,000 títulos",
+  //     "Centro de atención al colegiado"
+  //   ]
+  // }
 ];
 
-function Institucional() {
+function Nosostros() {
   return (
     <PageContainer>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12">
@@ -239,4 +239,4 @@ function Institucional() {
   );
 }
 
-export default Institucional;
+export default Nosostros;

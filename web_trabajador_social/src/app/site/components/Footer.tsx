@@ -13,6 +13,7 @@ import {
 import { FaPerson } from 'react-icons/fa6';
 import Link from 'next/link';
 import Image from 'next/image';
+import { BiFemale, BiWorld } from 'react-icons/bi';
 
 export default function Footer() {
     return (
@@ -51,10 +52,10 @@ export default function Footer() {
                                 <Link href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300" aria-label="YouTube">
                                     <FaYoutube className="w-4 h-4" />
                                 </Link>
-                                <Link href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300" aria-label="Facebook">
+                                <Link href="https://www.facebook.com/profile.php?id=61572236218259" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300" aria-label="Facebook">
                                     <FaFacebookF className="w-4 h-4" />
                                 </Link>
-                                <Link href="#" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300" aria-label="WhatsApp">
+                                <Link href="https://wa.me/51907107807" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all duration-300" aria-label="WhatsApp">
                                     <FaWhatsapp className="w-4 h-4" />
                                 </Link>
                             </div>
@@ -69,11 +70,11 @@ export default function Footer() {
                             <ul className="space-y-2">
                                 {[
                                     // { name: 'Inicio', href: '/site' },
-                                    { name: 'Noticias', href: '/site/noticias' },
-                                    { name: 'Colegiado', href: '/site/colegiado' },
-                                    { name: 'Institucional', href: '/site/institucional' },
-                                    { name: 'Cursos', href: '/site/cursos' },
-                                    { name: 'Diplomas', href: '/site/diplomado' }
+                                    { name: 'Consejo Directivo', href: '/site/consejo' },
+                                    { name: 'Nosotros', href: '/site/nosotros' },
+                                    { name: 'Colegiatura', href: '/site/colegiatura' },
+                                    { name: 'Busqueda', href: '/site/consulta' },
+                                 
                                 ].map((item) => (
                                     <li key={item.name}>
                                         <Link href={item.href} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 group">
@@ -102,8 +103,8 @@ export default function Footer() {
                                 </li>
                                 <li className="flex items-center gap-2 text-gray-400">
                                     {/* <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span> */}
-                                    <FaPerson className="text-blue-500 w-4 h-4 ml-5" />
-                                    Responsable: Secr Sybila Melgar
+                                    <BiFemale className="text-blue-500 w-4 h-4 ml-5" />
+                                    Responsable: Secr. Sybila Melgar
                                 </li>
                             </ul>
                         </div>
@@ -126,6 +127,10 @@ export default function Footer() {
                                 <li className="flex items-center gap-2 text-gray-400">
                                     <FaEnvelope className="w-4 h-4 text-blue-500" />
                                     <span>colegiotsvihyo@gmail.com</span>
+                                </li>
+                                <li className="flex items-center gap-2 text-gray-400">
+                                    <BiWorld className="w-4 h-4 text-blue-500" />
+                                    <span>https://ctspjunin.org.pe</span>
                                 </li>
                             </ul>
                         </div>

@@ -96,6 +96,10 @@ export async function registrarHabilitacion<Lista>(params: object, abortControll
     return await Resolve.create(instance.post<Lista>(`habilitaciones/registrar-habilitacion`, params, { signal: abortController?.signal }));
 }
 
+export async function actualizarHabilitacion<Lista>(params: object, abortController: AbortController | null = null): Promise<Response<Lista> | RestError> {
+    return await Resolve.create(instance.post<Lista>(`habilitaciones/actualizar-habilitacion`, params, { signal: abortController?.signal }));
+}
+
 // TABLAS GENERICAS
 export async function tiposDocumentoLista<Lista>(abortController: AbortController | null = null): Promise<Response<Lista> | RestError> {
     return await Resolve.create(instance.get<Lista>(`tablas/tipos-documento`, { signal: abortController?.signal }));

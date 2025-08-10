@@ -5,9 +5,9 @@ interface ContentCardProps {
   className?: string; // Optional: Allow passing additional classes
 }
 
-const ContentCard: React.FC<ContentCardProps> = ({ children, className }) => {
+const ContentCard: React.FC<ContentCardProps> = ({ children }) => {
   return (
-    <div className={`bg-white rounded-xl shadow-md ${className || ''}`}>
+    <div className={`min-h-screen bg-white rounded-lg shadow-md`}>
       <div className="p-3">
         {children}
       </div>

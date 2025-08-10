@@ -2,27 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import PageContainer from "@/app/site/components/PageContainer";
 import Carousel from "@/app/site/components/Carousel";
+import ImageModal from "@/app/site/components/ImageModal";
 import { FaArrowRight, FaUsers, FaBuilding, FaBook, FaHandshake, FaLaptop, FaUserTie, FaUniversity, FaClipboardList, FaGavel, FaGlobe, FaHeartbeat, FaLightbulb, FaChalkboardTeacher, FaBalanceScale, FaPencilRuler, FaRegLightbulb, FaImage } from 'react-icons/fa';
 import { BsCameraReelsFill, BsCloudFill, BsDatabaseFill } from 'react-icons/bs';
-import { BiFemale } from 'react-icons/bi';
+
 import Image from 'next/image';
 
-
-interface ConsejoDirectivoMember {
-  cargo: string;        // Cargo completo
-  initials: string;    // Iniciales del cargo
-  grade: string;       // Grado académico/profesional
-  name: string;        // Nombre completo
-}
-
-
-const consejoDirectivo: ConsejoDirectivoMember[] = [
-  { cargo: "DECANA", initials: "DC", grade: "Lic.", name: "Dora Emilda Alvarado Ninalaya" },
-  { cargo: "TESORERA", initials: "TS", grade: "Lic.", name: "Sheila Zenobia Zavala Valdez de Santiago" },
-  { cargo: "SECRETARIA", initials: "SC", grade: "Lic.", name: "Heldy Luz Goyas Escobar" },
-  { cargo: "VOCAL 1", initials: "VC1", grade: "Mg.", name: "Alicia Eliana Perez Ramos" },
-  { cargo: "VOCAL 2", initials: "VC2", grade: "Lic.", name: "Marybel Gil Huamancayo" }
-]
 
 // Definir un pool de iconos temáticos
 const iconPool = [
@@ -58,16 +43,19 @@ const colorPalette = [
   'text-indigo-600',
 ];
 
-const gradientPalette = [
-  // 'bg-gradient-to-br from-blue-400 to-purple-600',
-  // 'bg-gradient-to-br from-purple-400 to-green-600',
-  // 'bg-gradient-to-br from-green-400 to-orange-600',
-  // 'bg-gradient-to-br from-indigo-400 to-blue-600',
-  // 'bg-gradient-to-br from-orange-400 to-red-600',
-  // 'bg-gradient-to-br from-red-400 to-teal-600',
-  'bg-gradient-to-br from-teal-400 to-indigo-600',
-  
+// Imágenes de la galería (extraídas a la parte superior)
+const galleryImages: { src: string; title: string }[] = [
+  { src: "/images/site/galeria/galeria_1.webp", title: "Evento Institucional" },
+  { src: "/images/site/galeria/galeria_2.webp", title: "Ceremonia de Graduación" },
+  { src: "/images/site/galeria/galeria_3.webp", title: "Taller de Capacitación" },
+  { src: "/images/site/galeria/galeria_4.webp", title: "Charlas Educativas" },
+  { src: "/images/site/galeria/galeria_5.webp", title: "Actividad Comunitaria" },
+  { src: "/images/site/galeria/galeria_6.webp", title: "Foro Profesional" },
+  { src: "/images/site/galeria/galeria_7.webp", title: "Juramentación" },
+  { src: "/images/site/galeria/galeria_8.webp", title: "Brindis de aniversario" },
+  { src: "/images/site/galeria/galeria_9.webp", title: "Jornada de Integración" },
 ];
+
 
 // Función para obtener un número aleatorio de iconos únicos con colores aleatorios
 const getRandomIconsWithColors = (count: number) => {
@@ -81,12 +69,32 @@ const getRandomIconsWithColors = (count: number) => {
 };
 
 function SitePage() {
+  // Estado para controlar el modal de la galería
+  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Estado para controlar la carga de cada imagen de la galería
+  const [loadedGallery, setLoadedGallery] = useState<{ [index: number]: boolean }>({});
+
   // Array de elementos (imágenes) para el carrusel
   const carouselItems: React.ReactNode[] = [
     <div key="item1" className="flex items-center justify-center bg-gray-200 h-[550px]"><Image src="/images/site/slide/slide_1.webp" alt="Slide 1" width={1200} height={550} className="w-full h-full object-cover" /></div>,
     <div key="item2" className="flex items-center justify-center bg-gray-300 h-[550px]"><Image src="/images/site/slide/slide_2.webp" alt="Slide 2" width={1200} height={550} className="w-full h-full object-cover" /></div>,
     <div key="item3" className="flex items-center justify-center bg-gray-400 h-[550px]"><Image src="/images/site/slide/slide_3.webp" alt="Slide 3" width={1200} height={550} className="w-full h-full object-cover" /></div>,
   ];
+
+  // Función para abrir el modal
+  const openModal = (image: { src: string; title: string }) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  // Función para cerrar el modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
+
 
   // Estado para los iconos (con colores) que cambian aleatoriamente
   const [currentIconsWithColors, setCurrentIconsWithColors] = useState<{ Icon: React.ElementType; color: string }[]>([]);
@@ -106,6 +114,7 @@ function SitePage() {
 
   return (
     <PageContainer>
+
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
         {/* Hero Section */}
         <section className="relative py-16">
@@ -116,7 +125,7 @@ function SitePage() {
                 Colegio de Trabajadores Sociales del Perú
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Región Huancayo - Sirviendo a la comunidad con profesionalismo y dedicación social
+                Región VI - Huancayo - Junín - Transformando realidades, construyendo esperanza: trabajadores sociales del Perú, pasión y justicia para un país más humano.
               </p>
             </div>
 
@@ -140,7 +149,7 @@ function SitePage() {
                   Aquí podrás encontrar información relevante sobre nuestra institución, actividades, noticias, cursos de formación y recursos para nuestros colegiados y el público en general. Estamos comprometidos con el desarrollo profesional de nuestros miembros y el bienestar de la comunidad en Huancayo.
                 </p>
                 <a
-                  href="/site/institucional"
+                  href="/site/nosotros"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all duration-300"
                 >
                   Conoce más
@@ -164,47 +173,8 @@ function SitePage() {
           </div>
         </section>
 
-        {/* Consejo Directivo Section */}
+        {/* Galeria */}
         <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">Consejo Directivo</h2>
-            <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-              Nuestro equipo de profesionales comprometidos con el desarrollo social y profesional
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-              {consejoDirectivo.map((miembro, index) => (
-                <div key={index} className="group">
-                  <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
-                    {/* Foto placeholder con efecto de gradiente */}
-                    <div className={`aspect-[3/4] ${gradientPalette[index % gradientPalette.length]} relative overflow-hidden flex items-center justify-center`}>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <BiFemale className="text-[600px] text-white opacity-80" />
-                      </div>
-                      {/* Efecto de overlay al hover */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="absolute bottom-4 left-4 right-4 text-white text-center">
-                          <p className="font-medium text-3xl">{miembro.cargo}</p>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Información */}
-                    <div className="p-4">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-1 line-clamp-2">
-                        <span className="text-sm text-gray-600 font-medium">{miembro.grade}</span> {miembro.name}
-                      </h3>
-                      {/* <p className="text-sm text-gray-600 font-medium">{miembro.grade}</p> */}
-                      <p className="text-sm text-blue-600 font-medium mt-1">{miembro.cargo}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-        {/* Galería Section */}
-        <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-800 mb-4">
@@ -216,17 +186,28 @@ function SitePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, index) => (
+              {galleryImages.map((image, index) => (
                 <div
                   key={index}
-                  className="relative aspect-square bg-gray-100 rounded-xl overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300"
+                  className="relative aspect-square bg-gray-100 rounded-xl overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 border border-gray-300"
+                  onClick={() => openModal(image)}
                 >
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <FaImage className="h-16 w-16 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {/* Skeleton */}
+                  {!loadedGallery[index] && (
+                    <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-gray-200 to-gray-100" />
+                  )}
+
+                  <Image
+                    src={image.src}
+                    alt={image.title}
+                    width={400}
+                    height={400}
+                    className={`w-full h-full object-cover transition-transform duration-300 ${loadedGallery[index] ? 'group-hover:scale-105 opacity-100' : 'opacity-0'}`}
+                    onLoadingComplete={() => setLoadedGallery(prev => ({ ...prev, [index]: true }))}
+                  />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/50 to-transparent transition-opacity duration-300 ${loadedGallery[index] ? 'opacity-0 group-hover:opacity-100' : 'opacity-0'}`}>
                     <div className="absolute bottom-4 left-4 text-white">
-                      <p className="font-medium">Imagen {index + 1}</p>
+                      <p className="font-medium">{image.title}</p>
                     </div>
                   </div>
                 </div>
@@ -235,8 +216,9 @@ function SitePage() {
           </div>
         </section>
 
-        {/* Sección de Facebook Embed */}
-        <section className="py-16 bg-gray-100">
+
+        {/* Facebook */}
+        <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
               Últimas Noticias y Eventos en Facebook
@@ -270,6 +252,15 @@ function SitePage() {
             {/* <p className="mt-4 text-gray-600">Puedes reemplazar el `src` del iframe con la URL de tu página o publicación de Facebook.</p> */}
           </div>
         </section>
+
+        {/* Modal para mostrar imagen en pantalla completa */}
+        <ImageModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          imageSrc={selectedImage?.src || ""}
+          imageAlt={selectedImage?.title || ""}
+          imageTitle={selectedImage?.title}
+        />
 
       </div>
     </PageContainer>

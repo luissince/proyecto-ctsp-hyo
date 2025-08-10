@@ -100,8 +100,8 @@ export default function UsuariosPage() {
       <TitleCard title="Usuarios" />
 
       {/* Search Input and Button */}
-      <div className="mb-5 flex items-center gap-4">
-        <div className="flex flex-grow">
+      <div className="mb-5 flex flex-col md:flex-row items-stretch md:items-center gap-y-2 md:gap-y-0 md:gap-x-4">
+        <div className="flex flex-row md:flex-grow">
           <input
             type="text"
             placeholder="Buscar usuario..."
@@ -119,14 +119,14 @@ export default function UsuariosPage() {
         </div>
         <button
           onClick={handleRecharge}
-          className="flex-shrink-0 flex items-center px-3 py-1.5 text-sm bg-stone-600 text-white rounded-lg hover:bg-stone-700 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-stone-500 transition duration-150 ease-in-out"
+          className="w-full md:w-auto flex-shrink-0 flex items-center px-3 py-1.5 text-sm bg-stone-600 text-white rounded-lg hover:bg-stone-700 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-stone-500 transition duration-150 ease-in-out"
         >
           <IoReloadCircle className="w-4 h-4 mr-1.5" />
           Recargar
         </button>
         <button
           onClick={handleOpenModalCre}
-          className="flex-shrink-0 flex items-center px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+          className="w-full md:w-auto flex-shrink-0 flex items-center px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
         >
           <FaPlusCircle className="w-4 h-4 mr-1.5" />
           Nuevo
@@ -141,7 +141,7 @@ export default function UsuariosPage() {
             <tr>
               <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">#</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Nombre</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Email</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Celular / Email</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Rol</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Estado</th>
               <th scope="col" className="px-6 py-3 text-right text-xs font-bold text-white uppercase tracking-wider">Acciones</th>
@@ -170,10 +170,10 @@ export default function UsuariosPage() {
                 ) : (
                   dataUsuario.map((item, index) => (
                     <tr key={item.usuario_id} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
-                      } hover:bg-gray-100 transition duration-150 ease-in-out`}>
+                      } hover:bg-blue-50 transition duration-150 ease-in-out`}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{++index}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.apellidos} {item.nombres}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.correo_personal}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.celular} <br/> {item.correo_personal}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.nombre_rol}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                         <span className={`px-2 py-1 inline-flex items-center text-xs leading-5 font-semibold rounded-md ${item.estado === 1 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>

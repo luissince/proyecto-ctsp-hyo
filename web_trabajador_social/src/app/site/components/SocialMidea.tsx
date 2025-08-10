@@ -1,8 +1,9 @@
 "use client";
 
 import { FaEnvelope, FaFacebookF, FaShieldAlt, FaWhatsapp } from "react-icons/fa";
-// import { FaSquareWhatsapp } from "react-icons/fa6";
+
 import Link from 'next/link';
+
 
 export default function SocialMidea() {
 
@@ -37,9 +38,15 @@ export default function SocialMidea() {
                     <span className="hidden md:inline text-gray-200">colegiotsvihyo@gmail.com</span>
                 </span>
 
+                {/* Icono de intranet en móvil, alineado con los otros íconos */}
+                <Link href="/login" title="Intranet" className="md:hidden flex items-center gap-1 hover:text-indigo-200 transition-colors duration-200">
+                    <FaShieldAlt className="w-4 h-4 text-orange-300" />
+                </Link>
+
             </div>
 
-            <div className="flex items-center mt-1 md:mt-0">
+            {/* Botón con texto solo en desktop */}
+            <div className="hidden md:flex items-center mt-1 md:mt-0">
                 <Link href="/login" className="bg-white text-blue-500 font-semibold px-3 py-1 rounded-xl hover:bg-indigo-100 transition-colors duration-300 flex items-center gap-1 shadow-md">
                     <FaShieldAlt className="w-3 h-3 text-orange-300" />
                     <span className="">Intranet</span>

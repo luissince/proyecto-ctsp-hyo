@@ -86,10 +86,11 @@ function ConsultaColegiado() {
 
     const obj = {
       "tipo_busqueda": tipoBusquedaApi,
-      "busqueda": searchTerm
+      "busqueda": searchTerm.trim()
     }
 
     const response = await buscarcolegiadoweb<Lista>(obj, abortController.current)
+    //console.log(response)
     if (response instanceof Response) {
 
       const data = response.data.rs as ColegiadoWeb[]
@@ -160,9 +161,10 @@ function ConsultaColegiado() {
                       id="search"
                       value={searchTerm}
                       ref={searchTermRef}
+                      minLength={3}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                      placeholder={searchType === 'codigo' ? 'Ej: C009' : 'Ej: Ramírez'}
+                      placeholder={searchType === 'codigo' ? 'Ej: C009 (mín. 3 caracteres)' : 'Ej: Ramírez (mín. 3 caracteres)'}
                     />
                   </div>
                   <button
@@ -212,16 +214,16 @@ function ConsultaColegiado() {
                         </td> */}
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className={`px-3 py-1 text-sm font-semibold rounded-full flex items-center gap-1 w-fit ${
-                            result.estado === 1
+                            result.habilitacion === 1
                               ? 'bg-green-100 text-green-800'
                               : 'bg-red-100 text-red-800'
                           }`}>
-                            {result.estado === 1 ? (
+                            {result.habilitacion === 1 ? (
                               <FaCheckCircle className="h-3 w-3" />
                             ) : (
                               <FaTimesCircle className="h-3 w-3" />
                             )}
-                            {result.estado === 1? 'ACTIVO' : 'INACTIVO'}
+                            {result.habilitacion === 1? 'HABILITADO' : 'INHABILITADO'}
                           </span>
                         </td>
                       </tr>

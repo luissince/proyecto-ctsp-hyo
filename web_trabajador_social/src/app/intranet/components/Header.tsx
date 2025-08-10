@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FaSignOutAlt, FaBars } from 'react-icons/fa';
 import { useAuthStore } from '@/store/authStore';
 
-export default function Header() {
+export default function Header({ onOpenSidebar }: { onOpenSidebar?: () => void }) {
   const router = useRouter();
   const logout = useAuthStore((state) => state.logout);
 
@@ -15,10 +15,15 @@ export default function Header() {
   };
 
   return (
-    <header className="flex items-center justify-between h-16 bg-white shadow-sm px-6 border-b border-gray-100 fixed top-0 left-64 right-0 z-10">
+    <header className="flex items-center justify-between h-16 bg-white shadow-sm px-6 border-b border-gray-100">
       {/* Left section with menu button and logo */}
       <div className="flex items-center gap-4">
-        <button className="text-gray-500 hover:text-gray-700 focus:outline-none lg:hidden">
+        {/* Botón hamburguesa solo móvil */}
+        <button
+          className="text-gray-500 hover:text-gray-700 focus:outline-none md:hidden"
+          onClick={onOpenSidebar}
+          aria-label="Abrir sidebar"
+        >
           <FaBars className="w-5 h-5" />
         </button>
         <div className="flex items-center gap-2">

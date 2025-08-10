@@ -6,7 +6,7 @@ import CardDatosColegiado from "../../components/CardDataColegiado";
 import { HiClipboardList } from "react-icons/hi";
 import { useEffect, useRef, useState } from "react";
 import { BusquedaHistorialHabilitacion } from "../../api/model/interface/habilitacion";
-import { FaCheckCircle, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
+import { FaCheckCircle, FaEdit, FaLock, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
 import Lista from "../../api/model/interface/lista";
 import Response from "../../api/model/class/response";
 import RestError from "../../api/model/class/restError";
@@ -15,6 +15,8 @@ import Loading from "../../components/Loading";
 // import { RiExchangeFill } from "react-icons/ri";
 import ModCrearHistorial from "../modal/ModCrearHistorial";
 import { formatAndValidateDate, formatRegistrationDate, formatRegistrationTime } from "../../tools/helper";
+import ModActualizarHistorial from "../modal/ModActualizarHistorial";
+import { Tooltip } from "react-tooltip";
 
 type Props = {
     hide: () => void;
@@ -25,6 +27,8 @@ export default function HistorialHabilitacion(props: Props) {
 
     const [dataHisHab, setDataHisHab] = useState<BusquedaHistorialHabilitacion[]>([])
     const [loadTable, setLoadTable] = useState<boolean>(false)
+
+    const [obj, setObj] = useState<BusquedaHistorialHabilitacion | null>(null)
 
     const abortController = useRef(new AbortController());
 
@@ -38,6 +42,18 @@ export default function HistorialHabilitacion(props: Props) {
 
     const handleCloseModalCre = () => {
         setIsOpenModalCre(false);
+    };
+
+    // Modal Actualizar
+    const [isOpenModalAct, setIsOpenModalAct] = useState(false)
+
+    const handleOpenModalAct = (obj: BusquedaHistorialHabilitacion) => {
+        setObj(obj);
+        setIsOpenModalAct(true);
+    };
+
+    const handleCloseModalAct = () => {
+        setIsOpenModalAct(false);
     };
 
     useEffect(() => {
@@ -95,14 +111,14 @@ export default function HistorialHabilitacion(props: Props) {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-blue-600">
                         <tr>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">#</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Fecha Inicio</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Fecha Fin</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Observacion</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Fecha Registro</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Usuario Registro</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Estado</th>
-                            <th scope="col" className="px-6 py-3 text-right text-xs font-bold text-white uppercase tracking-wider">Acciones</th>
+                            <th scope="col" className="px-2 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">#</th>
+                            <th scope="col" className="px-2 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Fecha Inicio</th>
+                            <th scope="col" className="px-2 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Fecha Fin</th>
+                            <th scope="col" className="px-2 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Observacion</th>
+                            <th scope="col" className="px-2 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Fecha Registro</th>
+                            <th scope="col" className="px-2 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Usuario Registro</th>
+                            <th scope="col" className="px-2 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Estado</th>
+                            <th scope="col" className="px-2 py-3 text-right text-xs font-bold text-white uppercase tracking-wider">Acciones</th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -110,7 +126,7 @@ export default function HistorialHabilitacion(props: Props) {
                         {
                             loadTable ? (
                                 <tr className="text-center bg-white hover:bg-gray-50">
-                                    <td colSpan={8} className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                    <td colSpan={8} className="px-2 py-2 text-sm text-gray-900 whitespace-nowrap">
                                         <div className="flex items-center justify-center gap-2">
                                             <Loading /> <span className="text-gray-600">Cargando datos...</span>
                                         </div>
@@ -119,7 +135,7 @@ export default function HistorialHabilitacion(props: Props) {
                             ) : (
                                 dataHisHab.length == 0 ? (
                                     <tr className="text-center bg-white hover:bg-gray-50">
-                                        <td colSpan={8} className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                                        <td colSpan={8} className="px-2 py-2 text-sm text-gray-900 whitespace-nowrap">
                                             <div className="flex items-center justify-center gap-2">
                                                 <span className="text-gray-600 uppercase">No hay datos disponibles</span>
                                             </div>
@@ -127,35 +143,57 @@ export default function HistorialHabilitacion(props: Props) {
                                     </tr>
                                 ) : (
                                     dataHisHab.map((item, index) => (
-                                        <tr key={item.historial_habilitacion_id} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}} hover:bg-gray-100 transition duration-150 ease-in-out`}>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{++index}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                <div className="text-center">{item.fecha_inicio === "1900-01-01"? "-": formatAndValidateDate(item.fecha_inicio)}</div>
+                                        <tr key={item.historial_habilitacion_id} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}} hover:bg-blue-50 transition duration-150 ease-in-out`} data-tooltip-id={`history-${item.historial_habilitacion_id}`}>
+                                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-800">
+                                                <span
+                                                    data-tooltip-id={`history-${item.historial_habilitacion_id}`}
+                                                    className="font-bold uppercase text-upla-100 text-[12px] cursor-pointer ml-2"
+                                                >
+                                                    {index + 1}
+                                                </span>
+                                                <Tooltip
+                                                    id={`history-${item.historial_habilitacion_id}`}
+                                                    opacity={1}
+                                                    arrowColor="blue"
+                                                    variant="light"
+                                                    className="border-2 border-blue-500 z-50"
+                                                    place="bottom"
+                                                >
+                                                    <div className="flex flex-col py-1 gap-1">
+                                                        <span className='font-bold uppercase text-blue-500 text-[12px]'> <span className="text-gray-800 font-normal">OBS. ACTUALIZACIÓN:</span> {`${item.observacion_actualizacion}`}</span>
+                                                        <span className='font-bold uppercase text-blue-500 text-[12px]'> <span className="text-gray-800 font-normal">OBS. ESTADO:</span> {`${item.observacion_estado}`}</span>
+                                                    </div>
+                                                </Tooltip>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                <div className="text-center">{item.fecha_fin === "1900-01-01"? "-": formatAndValidateDate(item.fecha_fin)}</div>
+                                            <td className="px-2 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                <div className="text-center">{item.fecha_inicio === "1900-01-01" ? "-" : formatAndValidateDate(item.fecha_inicio)}</div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.observacion_registro}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                            <td className="px-2 py-3 whitespace-nowrap text-sm font-bold text-blue-700">
+                                                <span className="text-center">{item.fecha_fin === "1900-01-01" ? "-" : formatAndValidateDate(item.fecha_fin)}</span>
+                                            </td>
+                                            <td className="2 py-3 whitespace-nowrap text-xs text-gray-700">{item.observacion_registro}</td>
+                                            <td className="2 py-3 whitespace-nowrap text-sm text-gray-700">
                                                 {formatRegistrationDate(item.fecha_registra)} - {formatRegistrationTime(item.fecha_registra)}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{item.nombre_completo_usuario} { }</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                            <td className="2 py-3 whitespace-nowrap text-xs text-gray-700">{item.nombre_completo_usuario} { }</td>
+                                            <td className="2 py-3 whitespace-nowrap text-sm text-gray-700">
                                                 <span className={`px-2 py-1 inline-flex items-center text-xs leading-5 font-semibold rounded-md ${item.estado === 1 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                                                     {item.estado === 1 ? <FaCheckCircle className="mr-1" /> : <FaTimesCircle className="mr-1" />}
-                                                    {item.estado === 1 ? 'ACTIVO' : 'INACTIVO'}
+                                                    {item.estado === 1 ? 'HABILITADO' : 'INABILITADO'}
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <td className="2 py-3 whitespace-nowrap text-right text-sm font-medium">
                                                 <div className="flex items-center justify-end gap-2">
-                                                    {/* <button
-                                                        disabled={item.estado !== 1}
+                                                    <button
+                                                        //disabled={item.estado !== 1}
                                                         className={`text-yellow-600 hover:text-white transition-all duration-200 p-1.5 rounded-full hover:bg-yellow-500 shadow-sm hover:shadow-md transform hover:scale-105 ${item.estado !== 1 ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
                                                         title="Editar"
+                                                        onClick={() => handleOpenModalAct(item)}
                                                     >
                                                         {item.estado !== 1 ? <FaLock className="w-4 h-4 text-gray-400" /> : <FaEdit className="w-4 h-4" />}
                                                     </button>
-                                                    <button
+
+                                                    {/* <button
                                                         disabled={item.estado !== 1}
                                                         className={`text-sky-600 hover:text-white transition-all duration-200 p-1.5 rounded-full hover:bg-sky-500 shadow-sm hover:shadow-md transform hover:scale-105 ${item.estado !== 1 ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
                                                         title="Detalle"
@@ -175,7 +213,9 @@ export default function HistorialHabilitacion(props: Props) {
             </div>
 
 
-            <ModCrearHistorial title="Registrar Habilitacion" show={isOpenModalCre} hide={handleCloseModalCre} loadTable={reloadTable} idColegiado={props.colFiltro?.colegiado_id ?? 0}/>
+            <ModCrearHistorial title="Registrar Habilitación" show={isOpenModalCre} hide={handleCloseModalCre} loadTable={reloadTable} idColegiado={props.colFiltro?.colegiado_id ?? 0} />
+            <ModActualizarHistorial title="Actualizar Habilitación" show={isOpenModalAct} hide={handleCloseModalAct} loadTable={reloadTable} obj={obj} />
+
         </>
     )
 }

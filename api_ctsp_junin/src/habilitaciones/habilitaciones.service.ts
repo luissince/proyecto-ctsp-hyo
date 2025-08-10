@@ -35,12 +35,14 @@ export class HabilitacionesService {
 
     }
 
-    async actualizarHistorialHabilitacion(h: ActualizarHabilitacion ): Promise<any> {
+    async actualizarHistorialHabilitacion(h: ActualizarHabilitacion, usuario_id: number ): Promise<any> {
+
+        console.log(h)
         const result = await this.dbs.execSP('sp_actualizar_historial_habilitacion', [
             { value: h.historial_habilitacion_id, type: SqlDataType.INT },
             { value: h.fecha_fin, type: SqlDataType.VARCHAR },
             { value: h.observacion_actualizacion, type: SqlDataType.VARCHAR },
-            { value: h.usuario_modifica, type: SqlDataType.INT },
+            { value: usuario_id, type: SqlDataType.INT },
         ]);
 
         const dataResults = result.filter(item => Array.isArray(item));

@@ -87,6 +87,8 @@ export class HabilitacionesController {
     }
 
     @Post('actualizar-habilitacion')
+    @UseGuards(AuthGuard('jwt'))
+    @ApiBearerAuth()
     @ApiOperation({
         summary: 'Actualizar habilitación',
         description: 'Permite actualizar una habilitación existente'
@@ -106,9 +108,9 @@ export class HabilitacionesController {
             }
         }
     })
-    async actualizarHistorialHabilitacion(@Body() h: ActualizarHabilitacion) {
+    async actualizarHistorialHabilitacion(@Body() h: ActualizarHabilitacion, @Req() req: CustomRequest) {
         try {
-            const result = await this.hService.actualizarHistorialHabilitacion(h);
+            const result = await this.hService.actualizarHistorialHabilitacion(h, req.user.usuario_id);
             return {
                 rs: result
             };
